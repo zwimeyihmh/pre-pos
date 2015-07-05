@@ -1,6 +1,5 @@
 function count_same_elements(collection) {
   //在这里写入代码
-//  var result[20]={key:,count:};
   var result = [];
   var cou=1;
   var y = 0;
