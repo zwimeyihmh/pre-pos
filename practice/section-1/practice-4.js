@@ -1,22 +1,23 @@
+function findSame(elementA,elementB)
+{
+  for(var x = 0; x < elementB.length; x++){
+    if(elementA === elementB[x])
+    {
+      return elementA;
+    }
+  }
+  return undefined;
+}
+
 function collect_same_elements(collection_a, object_b) {
-  //在这里写入代码
-  var result=[];
-  var temp = 0;
-  for(var i = 0 ;i < collection_a.length;i++)
+  var result = [];
+  for(var i = 0; i < collection_a.length; i++)
   {
-	  for(var x = 0;x < object_b.value.length;x++)
-	  {
-		  if(object_b.value[x] === collection_a[i].key)
-		  {
-			  result[temp] = object_b.value[x];
-			  temp++;
-			  break;
-		  }
-	  }
-	  if(temp === object_b.value.length)
-	  {
-		  break;
-	  }
+    var  temp;
+    temp = findSame(collection_a[i].key,object_b.value);
+    if(temp){
+      result.push(temp);
+    }
   }
   return result;
 }

@@ -1,39 +1,35 @@
-function collect_same_elements(collection_a, collection_b) {
-  //在这里写入代码
-  var result = [];
-  var temp = 0;
-  var tempn = 0;
-  var t = 0;
-for(var x = 0;x < collection_b.length;x++)
+function findB(elementA,elementB)
 {
-	for(var y = 0;y < collection_b[x].length;y++)
-		{
-		tempn++;
-		 }
-}
-for(var i = 0;i < collection_a.length;i++)
+  for(var y = 0; y < elementB.length; y++)
   {
-	  for(var x = 0;x < collection_b.length;x++)
-	  {
-		  for(var y = 0;y < collection_b[x].length;y++)
-		  {
-			  if(collection_b[x][y] === collection_a[i])
-			  {
-				  result[temp]=collection_a[i];
-				  temp++;
-          t = 1;
-				  break;
-			  }
-		  }
-      if(t === tempn)
-      {
-        break;
-      }
-	  }
-	  if(tempn===temp)
-	  {
-		  break;
-	  }
+    if(elementA === elementB[y]){
+      return elementA;
+    }
+  }
+  return undefined;
+}
+
+function findSame(element,collection_b)
+{
+  for(var x = 0; x < collection_b.length; x++)
+  {
+    var temp = findB(element,collection_b[x]);
+    if(temp){
+      return temp;
+    }
+  }
+  return undefined;
+}
+
+function collect_same_elements(collection_a, collection_b) {
+  var result = [];
+  for(var i = 0; i < collection_a.length; i++)
+  {
+    var  temp;
+    temp = findSame(collection_a[i],collection_b);
+    if(temp){
+      result.push(temp);
+    }
   }
   return result;
 }
