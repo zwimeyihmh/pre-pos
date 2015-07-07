@@ -1,24 +1,60 @@
-function count_same_elements(collection) {
-  var result = [];
-  var y = 0;
-  var cou = 0;
-  var coll;
-  result[y] = {key:collection[0][0],count:0};
-  for(var i = 0;i < collection.length;i++)
+
+function findNum(array)
+{
+  var temp = "";
+  for(var i = 0; i < array.length; i++)
   {
-    if(collection[i].length === 1)
+    if(array[i] >= 0 && array[i] <= 9)
     {
-      if(collection[i] === result[y].key)
-      {
-        result[y].count++;
-      }
-      else {
-        result[++y]={key:collection[i],count:1}
-      }
-    }
-    else {
-      result[++y] = {key:collection[i][0],count:Number(collection[i][2])};
+      temp += array[i];
     }
   }
-    return result;
+  return parseInt(temp,10);
+}
+
+function findSame(element,array){
+  var count = 0;
+  for(var x = 0; x < array.length; x++){
+    if(element === array[x][0]){
+      if(array[x].length === 1){
+        count++;
+      }
+      else {
+        count += findNum(array[x]);
+      }
+    }
+  }
+  return count;
+}
+function notInResult(element,result)
+{
+  for(var i = 0; i < result.length; i++){
+    if(element === result[i].key){
+      return false;
+    }
+  }
+  return true;
+}
+
+function notInResult(element,result)
+{
+  for(var i = 0; i < result.length; i++){
+    if(element === result[i].key){
+      return false;
+    }
+  }
+  return true;
+}
+
+function count_same_elements(collection) {
+  var result = [];
+  for(var i = 0; i < collection.length; i++){
+    if(notInResult(collection[i][0],result)){
+      var sum = findSame(collection[i][0],collection);
+      if(sum > 0){
+        result.push({key:collection[i][0],count:sum});
+      }
+    }
+  }
+  return result;
 }

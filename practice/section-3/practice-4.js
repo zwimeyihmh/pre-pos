@@ -1,48 +1,82 @@
-function create_updated_collection(collection_a, object_b) {
-  //在这里写入代码
-  var result = [];
-  var c = [];
-  var y = 0;
-  result[y] = {key:collection_a[0][0],count:0};
-  for(var i = 0;i < collection_a.length;i++)
+function findNum(array)
+{
+  var temp = "";
+  for(var i = 0; i < array.length; i++)
   {
-    if(collection_a[i].length === 1)
+    if(array[i] >= 0 && array[i] <= 9)
     {
-      if(collection_a[i] === result[y].key)
-      {
-        result[y].count++;
+      temp += array[i];
+    }
+  }
+  return parseInt(temp,10);
+}
+
+function findSame(element,array){
+  var count = 0;
+  for(var x = 0; x < array.length; x++){
+    if(element === array[x][0]){
+      if(array[x].length === 1){
+        count++;
       }
       else {
-        result[++y]={key:collection_a[i],count:1}
+        count += findNum(array[x]);
       }
     }
-    else {
-      result[++y] = {key:collection_a[i][0],count:Number(collection_a[i][2])};
+  }
+  return count;
+}
+function notInResult(element,result)
+{
+  for(var i = 0; i < result.length; i++){
+    if(element === result[i].key){
+      return false;
     }
   }
-  var temp;
-  var tempn = 0;
-  for(var i = 0;i < result.length;i++)
+  return true;
+}
+
+function notInResult(element,result)
+{
+  for(var i = 0; i < result.length; i++){
+    if(element === result[i].key){
+      return false;
+    }
+  }
+  return true;
+}
+
+function count_same_elements(collection) {
+  var result = [];
+  for(var i = 0; i < collection.length; i++){
+    if(notInResult(collection[i][0],result)){
+      var sum = findSame(collection[i][0],collection);
+      if(sum > 0){
+        result.push({key:collection[i][0],count:sum});
+      }
+    }
+  }
+  return result;
+}
+
+function findBSame(elementA,elementB)
+{
+for(var x = 0; x < elementB.length; x++){
+  if(elementA === elementB[x])
   {
-    tempn = 0;
-    for(var x = 0;x < object_b.value.length;x++)
-    {
-      if(result[i].key === object_b.value[x])
-      {
-        tempn = 1;
-        temp = result[i].count;
-        while(temp > 2)
-        {
-          temp -= 3;
-          result[i].count --;
-        }
-      }
-      if(tempn === 1)
-      {
-        break;
-      }
-    }
-    c[i] = result[i];
+    return true;
   }
-  return c;
+}
+return undefined;
+}
+function create_updated_collection(collection_a, object_b) {
+  var result = [];
+  var c = count_same_elements(collection_a);
+  for(var i = 0;i < c.length;i++){
+    if(findBSame(c[i].key,object_b.value)){
+      var temp = parseInt(c[i].count/3);
+      c[i].count -= temp;
+    }
+    result.push(c[i]);
+  }
+  return result;
 }

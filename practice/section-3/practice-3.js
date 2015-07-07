@@ -1,52 +1,56 @@
-function create_updated_collection(collection_a, object_b) {
-  //在这里写入代码
-  var result = [];
-  var c = [];
-  var x = 0;
-  var temp;
-  var tempn;
-  var cou = 1;
-  c[x] = {key:collection_a[0],count:cou};
-  for(var i = 1;i < collection_a.length;i++)
-  {
-    temp = 0;
-    for(var y = 0;y <= x;y++)
-    {
-      if(collection_a[i] === c[y].key)
-      {
-        cou++;
-        temp = 1
-        break;
-      }
+function notInResult(element,result)
+{
+  for(var i = 0; i < result.length; i++){
+    if(element === result[i].key){
+      return false;
     }
-    if(temp === 0)
-    {
-      cou = 1;
-      x++;
-    }
-    c[x] = {key:collection_a[i],count:cou};
   }
-  for(var i = 0;i < c.length;i++)
-  {
-    tempn = 0;
-    for(var x = 0;x < object_b.value.length;x++)
-    {
-      if(c[i].key === object_b.value[x])
-      {
-        temp = c[i].count;
-        while(temp > 2)
-        {
-          temp -= 3;
-          c[i].count--;
-        }
-        tempn = 1;
-      }
-      if(tempn === 1)
-      {
-        break;
+  return true;
+}
+
+function findSame(element,array){
+  var count = 0;
+  for(var x = 0; x < array.length; x++){
+    if(element === array[x]){
+      count++;
+    }
+  }
+  return count;
+}
+
+function count_same_elements(collection) {
+  var result = [];
+  for(var i = 0; i < collection.length; i++){
+    if(notInResult(collection[i],result)){
+      var sum = findSame(collection[i],collection);
+      if(sum > 0){
+        result.push({key:collection[i],count:sum});
       }
     }
-    result[i] = c[i];
   }
   return result;
+}
+
+function create_updated_collection(collection_a, object_b) {
+  var result = [];
+  var c = count_same_elements(collection_a);
+  for(var i = 0;i < c.length;i++){
+    if(findBSame(c[i].key,object_b.value)){
+      var temp = parseInt(c[i].count/3);
+      c[i].count -= temp;
+    }
+    result.push(c[i]);
+  }
+  return result;
+}
+
+function findBSame(key,objectB)
+{
+  for(var x = 0; x < objectB.length; x++){
+    if(key === objectB[x])
+    {
+      return true;
+    }
+  }
+  return false;
 }

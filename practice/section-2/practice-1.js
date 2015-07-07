@@ -1,42 +1,32 @@
-function count_same_elements(collection) {
-  //在这里写入代码
-  var result = [];
-  var cou=1;
-  var y = 0;
-  result[y] = {key:collection[0],count:cou};
-  for(var i = 1 ;i < collection.length;i++)
-	{
-	  /*
-
-	  var temp = 0;
-	  for(var x = 0;x <= y;x++)
-		{
-	        if(collection[i] === result[x].key)
-	       {
-		      cou++;
-			  temp = 1;
-		      break;
-	       }
-		}
-		if(temp === 0)
-		{
-			cou=1;
-			y++;
-		}
-		*/
-		if(collection[i] === result[y].key)
-		{
-			//result[y].count++;
-			cou++;
-	    }
-		else
-		{
-		//	result[++y].key = collection[i];
-		//	result[y].count = 1;
-		    cou=1;
-			y++;
-		}
-	    result[y] = {key:collection[i],count:cou};
+function notInResult(element,result)
+{
+  for(var i = 0; i < result.length; i++){
+    if(element === result[i].key){
+      return false;
     }
-	return result;
+  }
+  return true;
+}
+
+function findSame(element,array){
+  var count = 0;
+  for(var x = 0; x < array.length; x++){
+    if(element === array[x]){
+      count++;
+    }
+  }
+  return count;
+}
+
+function count_same_elements(collection) {
+  var result = [];
+  for(var i = 0; i < collection.length; i++){
+    if(notInResult(collection[i],result)){
+      var sum = findSame(collection[i],collection);
+      if(sum > 0){
+        result.push({key:collection[i],count:sum});
+      }
+    }
+  }
+  return result;
 }
